@@ -3,239 +3,77 @@
  * Rest server for Grommet_Shipwire testing.
  *
  * @author tmannherz
+ * @link https://github.com/marcj/php-rest-service
  */
 
-// the following two classes have been modified slightly to fit our needs.
-require_once 'RestService/Client.php';
-require_once 'RestService/Server.php';
+spl_autoload_register(function ($class) {
+	if ('\\' == $class[0]) {
+		$class = substr($class, 1);
+	}
+	$file = str_replace('\\', '/', $class) . '.php';
+	if (file_exists($file)) {
+		require_once $file;
+	}
+});
 
 use RestService\Server;
+use Shipwire\Resource;
 
-Server::create('/', new Shipwire)
-	->setHttpStatusCodes(true)
-	
-	// vendor resources
-	->addGetRoute('vendors', 'getVendors')
-	->addGetRoute('vendors/([0-9]+)', 'getVendor')
-	->addPostRoute('vendors', 'postVendor')
-	->addPutRoute('vendors/([0-9]+)', 'putVendor')
-	->addDeleteRoute('vendors/([0-9]+)', 'deleteVendor')
-	
-	// warehouse resources
-	->addGetRoute('warehouses', 'getWarehouses')
-	->addGetRoute('warehouses/([0-9]+)', 'getWarehouse')
-	->addPostRoute('warehouses', 'postWarehouse')
-	->addPutRoute('warehouses/([0-9]+)', 'putWarehouse')
-	->addDeleteRoute('warehouses/([0-9]+)', 'deleteWarehouse')
-	
- ->run();
-
-/**
- * Shipwire REST resources.
- */
-class Shipwire
+class Controller
 {
 	/**
-	 * @var array
+	 * @var RestService\Server 
 	 */
-	protected $vendors = array(
-		1 => array(
-			'id' => 1,
-			'name' => 'Test Vendor 1',
-			'status' => 'active',
-			'description' => 'Vendor 1 description',
-			'contactName' => 'Vendor 1 name',
-			'contactEmail' => 'vendor1@thegrommet.com',
-			'contactPhone' => '123-456-7890',
-			'contactFax' => '234-567-8901',
-			'address1' => '123 Main St',
-			'address2' => 'Apt. 1',
-			'city' => 'Boulder',
-			'region' => 'CO',
-			'postalCode' => '80304',
-			'country' => 'US'
-		),
-		2 => array(
-			'id' => 2,
-			'name' => 'Test Vendor 2',
-			'status' => 'pending',
-			'description' => 'Vendor 2 description',
-			'contactName' => 'Vendor 2 name',
-			'contactEmail' => 'vendor2@thegrommet.com',
-			'contactPhone' => '123-456-7890',
-			'contactFax' => '234-567-8901',
-			'address1' => '234 Main St',
-			'city' => 'Boulder',
-			'region' => 'CO',
-			'postalCode' => '80304',
-			'country' => 'US'
-		)
-	);
-
-	/**
-	 * @var array
-	 */
-	protected $warehouses = array(
-		3 => array(
-			'id' => 3,
-			'name' => 'Warehouse 1',
-			'code' => 'abc1',
-			'vendorId' => 1,
-			'status' => 'active',
-			'description' => 'Warehouse 1 description',
-			'contactName' => 'Warehouse 1 name',
-			'contactEmail' => 'warehouse1@thegrommet.com',
-			'contactPhone' => '123-456-7890',
-			'contactFax' => '234-567-8901',
-			'address1' => '123 Main St',
-			'address2' => 'Apt. 1',
-			'city' => 'Boulder',
-			'region' => 'CO',
-			'postalCode' => '80304',
-			'country' => 'US'
-		),
-		4 => array(
-			'id' => 4,
-			'name' => 'Warehouse 2',
-			'code' => 'abc2',
-			'vendorId' => 1,
-			'status' => 'active',
-			'description' => 'Warehouse 2 description',
-			'contactName' => 'Warehouse 2 name',
-			'contactEmail' => 'warehouse2@thegrommet.com',
-			'contactPhone' => '123-456-7890',
-			'contactFax' => '234-567-8901',
-			'address1' => '234 Main St',
-			'city' => 'Boulder',
-			'region' => 'CO',
-			'postalCode' => '80304',
-			'country' => 'US'
-		)
-	);
-
-	/**
-	 * @param int $id
-	 * @return array
-	 */
-	public function getVendor ($id)
-	{
-		if (isset($this->vendors[$id])) {
-			return $this->vendors[$id];
-		}
-		return $this->respondError('Vendor not found');
-	}
-
-	/**
-	 * @return array
-	 */
-	public function getVendors ()
-	{
-		return $this->vendors;
-	}
-
-	/**
-	 * @param array $data
-	 * @return array
-	 */
-	public function postVendor ($data)
-	{
-		return $this->respondSuccess();
-	}
-
-	/**
-	 * @param int $id
-	 * @return array
-	 */
-	public function putVendor ($id)
-	{
-		return $this->deleteVendor($id);
-	}
-
-	/**
-	 * @param int $id
-	 * @return array
-	 */
-	public function deleteVendor ($id)
-	{
-		if (isset($this->vendors[$id])) {
-			return $this->respondSuccess();
-		}
-		return $this->respondError('Vendor not found');
-	}
-
-	/**
-	 * @param int $id
-	 * @return array
-	 */
-	public function getWarehouse ($id)
-	{
-		if (isset($this->warehouses[$id])) {
-			return $this->warehouses[$id];
-		}
-		return $this->respondError('Warehouse not found');
-	}
-
-	/**
-	 * @return array
-	 */
-	public function getWarehouses ()
-	{
-		return $this->warehouses;
-	}
-
-	/**
-	 * @param array $data
-	 * @return array
-	 */
-	public function postWarehouse ($data)
-	{
-		return $this->respondSuccess();
-	}
-
-	/**
-	 * @param int $id
-	 * @return array
-	 */
-	public function putWarehouse ($id)
-	{
-		return $this->deleteWarehouse($id);
-	}
-
-	/**
-	 * @param int $id
-	 * @return array
-	 */
-	public function deleteWarehouse ($id)
-	{
-		if (isset($this->warehouses[$id])) {
-			return $this->respondSuccess();
-		}
-		return $this->respondError('Warehouse not found');
-	}
-
-	/**
-	 * @param string $message
-	 * @return array
-	 */
-	protected function respondSuccess ($message = 'Successful')
-	{
-		return array(
-			'status' => 200,
-			'message' => $message
-		);
-	}
+	public $server;
 	
-	/**
-	 * @param string $message
-	 * @param int $code
-	 * @return array
-	 */
-	protected function respondError ($message = 'Not found', $code = 404)
+	public function __construct ()
 	{
-		return array(
-			'status' => $code,
-			'message' => $message,
-			'moreInfo' => 'more info...'
-		);
+		$this->server = Server::create('/')->setHttpStatusCodes(true);
+	}
+
+	/**
+	 * Add GET/POST/PUT/DELETE routes for a resource.
+	 * 
+	 * @param string $path
+	 * @param \Shipwire\Resource $controller
+	 * @return \Controller
+	 */
+	public function addEntityRoutes ($path, Resource $controller)
+	{
+		$this->server
+			->addGetRoute($path, array($controller, 'get'))
+			->addGetRoute($path . '/([0-9]+)', array($controller, 'get'))
+			->addPostRoute($path, array($controller, 'post'))
+			->addPutRoute($path . '/([0-9]+)', array($controller, 'put'))
+			->addDeleteRoute($path . '/([0-9]+)', array($controller, 'delete'));
+
+		return $this;
+	}
+
+	/**
+	 * @param string $path
+	 * @param \Shipwire\Resource $controller
+	 * @return \Controller
+	 */
+	public function addPostRoute ($path, Resource $controller)
+	{
+		$this->server->addPostRoute($path, array($controller, 'post'));
+		return $this;
+	}
+
+	/**
+	 * @return \Controller
+	 */
+	public function run ()
+	{
+		$this->server->run();
+		return $this;
 	}
 }
+
+$controller = new Controller();
+$controller
+	->addEntityRoutes('vendors', new \Shipwire\Vendor())
+	->addEntityRoutes('warehouses', new \Shipwire\Warehouse())
+	->addPostRoute('rate', new \Shipwire\Rate())
+	->run();

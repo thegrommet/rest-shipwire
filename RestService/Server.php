@@ -774,7 +774,12 @@ class Server
 
             $reflectionMethod = $ref->getMethod($callableMethod);
         } elseif (is_callable($callableMethod)) {
-            $reflectionMethod = new \ReflectionFunction($callableMethod);
+			if (is_array($callableMethod)) {
+				$reflectionMethod = new \ReflectionMethod($callableMethod[0], $callableMethod[1]);
+			}
+			else {
+				$reflectionMethod = new \ReflectionFunction($callableMethod);
+			}
         }
 
         $params = $reflectionMethod->getParameters();
@@ -801,12 +806,16 @@ class Server
                 }
                 $arguments[] = $thisArgs;
             } else {
+				if ($name == 'data') {  // send the whole post
+					$arguments = count($_POST) ? $_POST : $_GET;
+				}
+                else {
+					if (!$param->isOptional() && !isset($_GET[$name]) && !isset($_POST[$name])) {
+						return $this->sendBadRequest('MissingRequiredArgumentException', sprintf("Argument '%s' is missing.", $name));
+					}
 
-                if (!$param->isOptional() && !isset($_GET[$name]) && !isset($_POST[$name])) {
-                    return $this->sendBadRequest('MissingRequiredArgumentException', sprintf("Argument '%s' is missing.", $name));
-                }
-
-                $arguments[] = isset($_GET[$name]) ? $_GET[$name] : (isset($_POST[$name]) ? $_POST[$name] : null);
+					$arguments[] = isset($_GET[$name]) ? $_GET[$name] : (isset($_POST[$name]) ? $_POST[$name] : null);
+				}
             }
         }
 
