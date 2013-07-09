@@ -1,8 +1,10 @@
 rest-shipwire
 =============
 
-PHP Rest Server for Shipwire Integration Development
+PHP Rest Server for Shipwire Integration
 ----------------------------------------------------
+
+This provides a simple PHP-based REST service with dummy responses to aid in Shipwire integration development before the actual APIs are ready.
 
 ### Apache Virtual Host Setup
 

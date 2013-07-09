@@ -210,9 +210,7 @@ class Shipwire
 		if (isset($this->warehouses[$id])) {
 			return $this->respondSuccess();
 		}
-		else {
-			return $this->respondError('Warehouse not found');
-		}
+		return $this->respondError('Warehouse not found');
 	}
 
 	/**
