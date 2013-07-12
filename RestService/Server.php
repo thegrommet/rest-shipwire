@@ -807,7 +807,15 @@ class Server
                 $arguments[] = $thisArgs;
             } else {
 				if ($name == 'data') {  // send the whole post
-					$arguments = count($_POST) ? $_POST : $_GET;
+					if (count($_POST)) {
+						$arguments = $_POST;
+					}
+					else if (count($_GET)) {
+						$arguments = $_GET;
+					}
+					else {  // raw post body
+						$arguments = array(file_get_contents('php://input'));
+					}
 				}
                 else {
 					if (!$param->isOptional() && !isset($_GET[$name]) && !isset($_POST[$name])) {
