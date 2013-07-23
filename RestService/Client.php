@@ -18,7 +18,8 @@ class Client
      */
     private $outputFormats = array(
         'json' => 'asJSON',
-        'xml' => 'asXML'
+        'xml' => 'asXML',
+		'pdf' => 'asPDF'
     );
 
     /**
@@ -143,7 +144,11 @@ class Client
         }
 
         $method = $this->getOutputFormatMethod($this->getOutputFormat());
-        echo $this->$method($pMessage);
+        $response = $this->$method($pMessage);
+		if (is_array($response)) {
+			$response = print_r($response, 1);
+		}
+		echo $response;
         exit;
     }
 
@@ -286,6 +291,20 @@ class Client
         }
 
         return $result;
+    }
+
+    /**
+     * Converts $pMessage to PDF.
+     *
+     * @param $pMessage
+     * @return string
+     */
+    public function asPDF($pMessage)
+    {
+        if (php_sapi_name() !== 'cli' )
+            header('Content-Type: application/pdf;');
+
+        return $pMessage;
     }
 
     /**

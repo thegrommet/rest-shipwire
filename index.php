@@ -62,6 +62,28 @@ class Controller
 	}
 
 	/**
+	 * @param string $path
+	 * @param \Shipwire\Resource $controller
+	 * @return \Controller
+	 */
+	public function addGetRoute ($path, Resource $controller)
+	{
+		$this->server->addGetRoute($path, array($controller, 'get'));
+		return $this;
+	}
+
+	/**
+	 * @param string $path
+	 * @param \Shipwire\Resource $controller
+	 * @return \Controller
+	 */
+	public function addCustomRoute ($path, Resource $controller, $method)
+	{
+		$this->server->addGetRoute($path, array($controller, $method));
+		return $this;
+	}
+
+	/**
 	 * @return \Controller
 	 */
 	public function run ()
@@ -76,4 +98,5 @@ $controller
 	->addEntityRoutes('vendors', new \Shipwire\Vendor())
 	->addEntityRoutes('warehouses', new \Shipwire\Warehouse())
 	->addPostRoute('rate', new \Shipwire\Rate())
+	->addCustomRoute('shipments/([0-9]+)/packing-list', new \Shipwire\Shipment(), 'packingList')
 	->run();

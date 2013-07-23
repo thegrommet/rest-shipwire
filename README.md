@@ -21,6 +21,7 @@ This provides a simple PHP-based REST service with dummy responses to aid in Shi
 * /vendors
 * /warehouses
 * /rate
+* /shipments/{any_int}/packing-list
 
 ### Vendor GET example
 
