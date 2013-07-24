@@ -74,9 +74,9 @@ class Controller
 
 	/**
 	 * @param string $path
-	 * @param string $restMethod
 	 * @param \Shipwire\Resource $controller
 	 * @param string $controllerMethod
+	 * @param string $restMethod
 	 * @return \Controller
 	 */
 	public function addCustomRoute ($path, Resource $controller, $controllerMethod, $restMethod = 'get')
