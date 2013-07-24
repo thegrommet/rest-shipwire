@@ -21,7 +21,13 @@ abstract class Resource
 	public function get ($id = null)
 	{
 		if ($id === null) {
-			return $this->resources;
+			return array(
+				'offset' => 0,
+				'total' => count($this->resources),
+				'previous' => 'http://link-to-previous',
+				'next' => 'http://link-to-next',
+				'items' => $this->resources
+			);
 		}
 		else if (isset($this->resources[$id])) {
 			return $this->resources[$id];

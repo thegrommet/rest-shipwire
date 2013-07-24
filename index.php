@@ -74,12 +74,15 @@ class Controller
 
 	/**
 	 * @param string $path
+	 * @param string $restMethod
 	 * @param \Shipwire\Resource $controller
+	 * @param string $controllerMethod
 	 * @return \Controller
 	 */
-	public function addCustomRoute ($path, Resource $controller, $method)
+	public function addCustomRoute ($path, Resource $controller, $controllerMethod, $restMethod = 'get')
 	{
-		$this->server->addGetRoute($path, array($controller, $method));
+		$serverMethod = 'add' . ucfirst(strtolower($restMethod)) . 'Route';
+		$this->server->$serverMethod($path, array($controller, $controllerMethod));
 		return $this;
 	}
 
@@ -98,5 +101,6 @@ $controller
 	->addEntityRoutes('vendors', new \Shipwire\Vendor())
 	->addEntityRoutes('warehouses', new \Shipwire\Warehouse())
 	->addPostRoute('rate', new \Shipwire\Rate())
+	->addEntityRoutes('shipments', new \Shipwire\Shipment())
 	->addCustomRoute('shipments/([0-9]+)/packing-list', new \Shipwire\Shipment(), 'packingList')
 	->run();
