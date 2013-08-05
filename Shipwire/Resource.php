@@ -20,17 +20,20 @@ abstract class Resource
 	 */
 	public function get ($id = null)
 	{
+		$res = $this->respondSuccess();
 		if ($id === null) {
-			return array(
+			$res['resource'] = array(
 				'offset' => 0,
 				'total' => count($this->resources),
 				'previous' => 'http://link-to-previous',
 				'next' => 'http://link-to-next',
 				'items' => array_values($this->resources)
 			);
+			return $res;
 		}
 		else if (isset($this->resources[$id])) {
-			return $this->resources[$id];
+			$res['resource'] = $this->resources[$id];
+			return $res;
 		}
 		return $this->respondError($this->label . ' not found');
 	}
@@ -42,7 +45,7 @@ abstract class Resource
 	public function post ($data)
 	{
 		$res = $this->respondSuccess();
-		$res['resource'] = array('id' => rand(0, count($this->resources) - 1));
+		$res['resource'] = $this->resources[rand(0, count($this->resources) - 1)];
 		return $res;
 	}
 
@@ -52,7 +55,7 @@ abstract class Resource
 	 */
 	public function put ($id)
 	{
-		return $this->delete($id);
+		return $this->post(array());
 	}
 
 	/**
@@ -62,7 +65,7 @@ abstract class Resource
 	public function delete ($id)
 	{
 		if (isset($this->resources[$id])) {
-			return $this->respondSuccess();
+			return $this->respondSuccess('Deleted');
 		}
 		return $this->respondError($this->label . ' not found');
 	}
@@ -75,7 +78,8 @@ abstract class Resource
 	{
 		return array(
 			'status' => 200,
-			'message' => $message
+			'message' => $message,
+			'resourceLocation' => 'http://link-to-resource'
 		);
 	}
 
