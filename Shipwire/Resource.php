@@ -27,8 +27,14 @@ abstract class Resource
 				'total' => count($this->resources),
 				'previous' => 'http://link-to-previous',
 				'next' => 'http://link-to-next',
-				'items' => array_values($this->resources)
+				'items' => array()
 			);
+			foreach ($this->resources as $resource) {
+				$res['resource']['items'][] = array(
+					'resourceLocation' => 'http://link-to-resource',
+					'resource' => $resource
+				);
+			}
 			return $res;
 		}
 		else if (isset($this->resources[$id])) {
