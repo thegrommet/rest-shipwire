@@ -51,7 +51,8 @@ abstract class Resource
 	public function post ($data)
 	{
 		$res = $this->respondSuccess();
-		$res['resource'] = $this->resources[rand(0, count($this->resources) - 1)];
+		$keys = array_keys($this->resources);
+		$res['resource'] = $this->resources[$keys[rand(0, count($this->resources) - 1)]];
 		return $res;
 	}
 

@@ -22,11 +22,11 @@ This provides a simple PHP-based REST service with dummy responses to aid in Shi
 * /warehouses
 * /rate
 * /shipments
-* /shipments/{any_int}/packing-list
+* /shipments/E{any_int}/packing-list
 
 ### Vendor GET example
 
-http://www.rest.site/vendors/1
+http://www.rest.site/vendors/E1
 
 ```JSON
 {

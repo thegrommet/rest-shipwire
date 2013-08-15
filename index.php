@@ -42,10 +42,10 @@ class Controller
 	{
 		$this->server
 			->addGetRoute($path, array($controller, 'get'))
-			->addGetRoute($path . '/([0-9]+)', array($controller, 'get'))
+			->addGetRoute($path . '/E([0-9]+)', array($controller, 'get'))
 			->addPostRoute($path, array($controller, 'post'))
-			->addPutRoute($path . '/([0-9]+)', array($controller, 'put'))
-			->addDeleteRoute($path . '/([0-9]+)', array($controller, 'delete'));
+			->addPutRoute($path . '/E([0-9]+)', array($controller, 'put'))
+			->addDeleteRoute($path . '/E([0-9]+)', array($controller, 'delete'));
 
 		return $this;
 	}
@@ -102,5 +102,5 @@ $controller
 	->addEntityRoutes('warehouses', new \Shipwire\Warehouse())
 	->addPostRoute('rate', new \Shipwire\Rate())
 	->addEntityRoutes('shipments', new \Shipwire\Shipment())
-	->addCustomRoute('shipments/([0-9]+)/packing-list', new \Shipwire\Shipment(), 'packingList')
+	->addCustomRoute('shipments/E([0-9]+)/packing-list', new \Shipwire\Shipment(), 'packingList')
 	->run();
