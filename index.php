@@ -100,6 +100,7 @@ $controller = new Controller();
 $controller
 	->addEntityRoutes('vendors', new \Shipwire\Vendor())
 	->addEntityRoutes('warehouses', new \Shipwire\Warehouse())
+	->addEntityRoutes('products', new \Shipwire\Product())
 	->addPostRoute('rate', new \Shipwire\Rate())
 	->addEntityRoutes('shipments', new \Shipwire\Shipment())
 	->addCustomRoute('shipments/E([0-9]+)/packing-list', new \Shipwire\Shipment(), 'packingList')

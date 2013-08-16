@@ -23,6 +23,7 @@ This provides a simple PHP-based REST service with dummy responses to aid in Shi
 * /rate
 * /shipments
 * /shipments/E{any_int}/packing-list
+* /products
 
 ### Vendor GET example
 
@@ -30,7 +31,8 @@ http://www.rest.site/vendors/E1
 
 ```JSON
 {
-    "id": 1,
+    "id": 10,
+	"externalId": 1,
     "name": "Test Vendor 1",
     "status": "active",
     "description": "Vendor 1 description",

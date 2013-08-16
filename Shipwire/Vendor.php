@@ -19,7 +19,8 @@ class Vendor extends Resource
 	 */
 	protected $resources = array(
 		1 => array(
-			'id' => 1,
+			'id' => 10,
+			'externalId' => 1,
 			'name' => 'Test Vendor 1',
 			'status' => 'active',
 			'description' => 'Vendor 1 description',
@@ -35,7 +36,8 @@ class Vendor extends Resource
 			'country' => 'US'
 		),
 		2 => array(
-			'id' => 2,
+			'id' => 12,
+			'externalId' => 2,
 			'name' => 'Test Vendor 2',
 			'status' => 'pending',
 			'description' => 'Vendor 2 description',

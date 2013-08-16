@@ -19,10 +19,12 @@ class Warehouse extends Resource
 	 */
 	protected $resources = array(
 		3 => array(
-			'id' => 3,
+			'id' => 13,
+			'externalId' => 3,
 			'name' => 'Warehouse 1',
 			'code' => 'abc1',
-			'vendorId' => 1,
+			'vendorId' => 10,
+			'vendorExternalId' => 1,
 			'status' => 'active',
 			'description' => 'Warehouse 1 description',
 			'contactName' => 'Warehouse 1 name',
@@ -37,10 +39,12 @@ class Warehouse extends Resource
 			'country' => 'US'
 		),
 		4 => array(
-			'id' => 4,
+			'id' => 14,
+			'externalId' => 4,
 			'name' => 'Warehouse 2',
 			'code' => 'abc2',
-			'vendorId' => 1,
+			'vendorId' => 12,
+			'vendorExternalId' => 2,
 			'status' => 'active',
 			'description' => 'Warehouse 2 description',
 			'contactName' => 'Warehouse 2 name',
