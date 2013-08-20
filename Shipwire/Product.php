@@ -87,4 +87,46 @@ class Product extends Resource
 			//'countryOfOrigin' => 'US'
 		)
 	);
+
+	/**
+	 * Stock info.
+	 *
+	 * @param int $id
+	 * @return array
+	 */
+	public function stock ($id)
+	{
+		return array(
+			'offset' => 0,
+			'total' => 1,
+			'previous' => 'http://link-to-previous',
+			'next' => 'http://link-to-next',
+			'items' => array(
+				array(
+					'productId' => 1,
+					'externalProductId' => (int)$id,
+					'warehouseId' => 2,
+					'externalWarehouseId' => isset($_GET['externalWarehouseId']) ? (int)$_GET['externalWarehouseId'] : 2,
+					'sku' => 'sku123',
+					'pending' => 0,
+					'good' => 20,
+					'reserved' => 0,
+					'backordered' => 0,
+					'shipping' => 0,
+					'shipped' => 0
+				)
+			)
+		);
+	}
+
+	/**
+	 * Stock adjustment.
+	 * 
+	 * @param array $data
+	 * @return array
+	 */
+	public function stockAdjust ($data)
+	{
+		return $this->respondSuccess();
+	}
 }

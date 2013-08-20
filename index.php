@@ -101,6 +101,8 @@ $controller
 	->addEntityRoutes('vendors', new \Shipwire\Vendor())
 	->addEntityRoutes('warehouses', new \Shipwire\Warehouse())
 	->addEntityRoutes('products', new \Shipwire\Product())
+	->addCustomRoute('products/E([0-9]+)/stock', new \Shipwire\Product(), 'stock')
+	->addCustomRoute('products/E([0-9]+)/stock-adjustments', new \Shipwire\Product(), 'stockAdjust', 'post')
 	->addPostRoute('rate', new \Shipwire\Rate())
 	->addEntityRoutes('shipments', new \Shipwire\Shipment())
 	->addCustomRoute('shipments/E([0-9]+)/packing-list', new \Shipwire\Shipment(), 'packingList')
