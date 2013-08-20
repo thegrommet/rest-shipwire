@@ -21,21 +21,23 @@ class Rate extends Resource
 		'status' => 200,
 		'message' => 'Successful',
 		'moreInfo' => 'more info...',
-		'groupBy' => 'vendor',
-		'rates' => array(),
-		'warnings' => array(
-			array(
-				'type' => 'warning',
-				'code' => 123,
-				'message' => 'warning message...'
-			)
-		),
-		'errors' => array(
-			array(
-				'type' => 'error',
-				'code' => 123,
-				'message' => 'error message...'
-			)
+		'resource' => array(
+			'groupBy' => 'vendor',
+			'rates' => array(),
+			'warnings' => array(
+				array(
+					'type' => 'warning',
+					'code' => 123,
+					'message' => 'warning message...'
+				)
+			),
+			'errors' => array(
+				array(
+					'type' => 'error',
+					'code' => 123,
+					'message' => 'error message...'
+				)
+			)			
 		)
 	);
 	
@@ -52,6 +54,7 @@ class Rate extends Resource
 		$group = array(
 			'groupName' => $groupName,
 			'groupId' => $groupId,
+			'groupExternalId' => $groupId,
 			'serviceOptions' => array()
 		);
 		if (!$numOpts) {
@@ -138,7 +141,7 @@ class Rate extends Resource
 				)
 			);
 		}
-		$schema['rates'][] = $group;
+		$schema['resource']['rates'][] = $group;
 	}
 
 	/**
@@ -148,12 +151,12 @@ class Rate extends Resource
 	public function post ($data)
 	{
 		$schema = $this->schema;
-		unset($schema['warnings']);
-		unset($schema['errors']);
+		unset($schema['resource']['warnings']);
+		unset($schema['resource']['errors']);
 
 		// this really needs to be adjusted for the sales quote to return usable rates
-		$this->addRate($schema, 236, 'Daily Grommet (W)', 2);
-		$this->addRate($schema, 635, 'Active People', 3);
+		$this->addRate($schema, 666, 'The Grommet (S)', 2);
+		//$this->addRate($schema, 635, 'Active People', 3);
 
 		return $schema;
 	}
