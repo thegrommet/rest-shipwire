@@ -99,6 +99,8 @@ class Controller
 $controller = new Controller();
 $controller
 	->addEntityRoutes('vendors', new \Shipwire\Vendor())
+	->addCustomRoute('vendors/E([0-9]+)/packing-lists', new \Shipwire\Vendor(), 'packingLists')
+	->addCustomRoute('vendors/E([0-9]+)/shipping-labels', new \Shipwire\Vendor(), 'shippingLabels')
 	->addEntityRoutes('warehouses', new \Shipwire\Warehouse())
 	->addEntityRoutes('products', new \Shipwire\Product())
 	->addCustomRoute('products/E([0-9]+)/stock', new \Shipwire\Product(), 'stock')
@@ -106,4 +108,5 @@ $controller
 	->addPostRoute('rate', new \Shipwire\Rate())
 	->addEntityRoutes('shipments', new \Shipwire\Shipment())
 	->addCustomRoute('shipments/E([0-9]+)/packing-list', new \Shipwire\Shipment(), 'packingList')
+	->addCustomRoute('shipments/E([0-9]+)/shipping-label', new \Shipwire\Shipment(), 'shippingLabel')
 	->run();

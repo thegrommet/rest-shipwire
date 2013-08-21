@@ -52,4 +52,26 @@ class Vendor extends Resource
 			'country' => 'US'
 		)
 	);
+
+	/**
+	 * Render the PDF.
+	 * 
+	 * @param int $id
+	 * @return string
+	 */
+	public function packingLists ($id)
+	{
+		return hex2bin($this->hexPdf);
+	}
+
+	/**
+	 * Render the PDF.
+	 *
+	 * @param int $id
+	 * @return string
+	 */
+	public function shippingLabels ($id)
+	{
+		return hex2bin($this->hexPdf);
+	}
 }
