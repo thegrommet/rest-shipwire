@@ -104,9 +104,9 @@ class Product extends Resource
 			'items' => array(
 				array(
 					'productId' => 1,
-					'externalProductId' => (int)$id,
+					'productExternalId' => (int)$id,
 					'warehouseId' => 2,
-					'externalWarehouseId' => isset($_GET['externalWarehouseId']) ? (int)$_GET['externalWarehouseId'] : 2,
+					'warehouseExternalId' => isset($_GET['warehouseExternalId']) ? (int)$_GET['warehouseExternalId'] : 2,
 					'sku' => 'sku123',
 					'pending' => 0,
 					'good' => 20,
