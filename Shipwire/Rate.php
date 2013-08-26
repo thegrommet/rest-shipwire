@@ -89,7 +89,13 @@ class Rate extends Resource
 						'expectedShipDate' => date('Y-m-d'),
 						'expectedDeliveryDateMin' => date('Y-m-d'),
 						'expectedDeliveryDateMax' => date('Y-m-d'),
-						'cost' => rand(400, 5000) / 100,
+						'cost' => array(
+							'currency' => 'USD',
+							'type' => 'total',
+							'name' => 'Total',
+							'amount' => rand(400, 5000) / 100,
+							'converted' => false
+						),
 						'subtotals' => array(
 							array(
 								'currency' => 'USD',

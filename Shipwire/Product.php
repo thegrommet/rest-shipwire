@@ -96,27 +96,65 @@ class Product extends Resource
 	 */
 	public function stock ($id)
 	{
-		return array(
-			'offset' => 0,
-			'total' => 1,
-			'previous' => 'http://link-to-previous',
-			'next' => 'http://link-to-next',
-			'items' => array(
-				array(
-					'productId' => 1,
-					'productExternalId' => (int)$id,
-					'warehouseId' => 2,
-					'warehouseExternalId' => isset($_GET['warehouseExternalId']) ? (int)$_GET['warehouseExternalId'] : 2,
-					'sku' => 'sku123',
-					'pending' => 0,
-					'good' => 20,
-					'reserved' => 0,
-					'backordered' => 0,
-					'shipping' => 0,
-					'shipped' => 0
+		if (isset($_GET['warehouseExternalId'])) {
+			return array(
+				'offset' => 0,
+				'total' => 1,
+				'previous' => 'http://link-to-previous',
+				'next' => 'http://link-to-next',
+				'items' => array(
+					array(
+						'productId' => 1,
+						'productExternalId' => (int)$id,
+						'warehouseId' => 2,
+						'warehouseExternalId' => (int)$_GET['warehouseExternalId'],
+						'sku' => 'sku123',
+						'pending' => 0,
+						'good' => 20,
+						'reserved' => 0,
+						'backordered' => 0,
+						'shipping' => 0,
+						'shipped' => 0
+					)
 				)
-			)
-		);
+			);
+		}
+		else {
+			return array(
+				'offset' => 0,
+				'total' => 1,
+				'previous' => 'http://link-to-previous',
+				'next' => 'http://link-to-next',
+				'items' => array(
+					array(
+						'productId' => 1,
+						'productExternalId' => (int)$id,
+						'warehouseId' => 2,
+						'warehouseExternalId' => 511,
+						'sku' => 'sku123',
+						'pending' => 0,
+						'good' => 10,
+						'reserved' => 0,
+						'backordered' => 0,
+						'shipping' => 0,
+						'shipped' => 0
+					),
+					array(
+						'productId' => 1,
+						'productExternalId' => (int)$id,
+						'warehouseId' => 2,
+						'warehouseExternalId' => 723,
+						'sku' => 'sku123',
+						'pending' => 0,
+						'good' => 10,
+						'reserved' => 0,
+						'backordered' => 0,
+						'shipping' => 0,
+						'shipped' => 0
+					)
+				)
+			);
+		}
 	}
 
 	/**
