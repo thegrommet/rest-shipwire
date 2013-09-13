@@ -109,4 +109,8 @@ $controller
 	->addEntityRoutes('shipments', new \Shipwire\Shipment())
 	->addCustomRoute('shipments/E([0-9]+)/packing-list', new \Shipwire\Shipment(), 'packingList')
 	->addCustomRoute('shipments/E([0-9]+)/shipping-label', new \Shipwire\Shipment(), 'shippingLabel')
+	->addCustomRoute('shipments/E([0-9]+)/tracking-numbers', new \Shipwire\Shipment(), 'trackingGet', 'get')
+	->addCustomRoute('shipments/E([0-9]+)/tracking-numbers', new \Shipwire\Shipment(), 'trackingPost', 'post')
+	->addEntityRoutes('orders', new \Shipwire\Order())
+	->addCustomRoute('orders/E([0-9]+)/packing-lists', new \Shipwire\Order(), 'packingLists')
 	->run();

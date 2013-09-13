@@ -20,9 +20,11 @@ class Shipment extends Resource
 	protected $resources = array(
 		1 => array(
 			'id' => 1,
+			'externalId' => '140086100',
 			'orderId' => 900,
+			'orderExternalId' => 1,
 			'vendorId' => 1,
-			'shipmentNumber' => '140086100',
+			'vendorExternalId' => 666,
 			'status' => 'processed',
 			'items' => array(
 				array(
@@ -84,9 +86,11 @@ class Shipment extends Resource
 		),
 		2 => array(
 			'id' => 2,
+			'externalId' => '140086103',
 			'orderId' => 900,
+			'orderExternalId' => 1,
 			'vendorId' => 1,
-			'shipmentNumber' => '140086101',
+			'vendorExternalId' => 666,
 			'status' => 'complete',
 			'items' => array(
 				array(
@@ -158,5 +162,39 @@ class Shipment extends Resource
 	public function shippingLabel ($id)
 	{
 		return hex2bin($this->hexPdf);
+	}
+
+	/**
+	 * Tracking number GET
+	 *
+	 * @param int $id
+	 * @return array
+	 */
+	public function trackingGet ($id = null)
+	{
+		$res = $this->respondSuccess();
+		$res['resource'] = array(
+			'items' => array(
+				array(
+					'carrier' => array(
+						'code' => 'UPS GD',
+						'name' => 'Ground'
+					),
+					'number' => '1ZA57F290343221611'
+				)
+			)
+		);
+		return $res;
+	}
+
+	/**
+	 * Tracking number POST
+	 *
+	 * @param array $data
+	 * @return array
+	 */
+	public function trackingPost ($data)
+	{
+		return $this->trackingGet();
 	}
 }
